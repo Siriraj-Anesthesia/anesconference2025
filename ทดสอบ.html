@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>อัปโหลดสลิปค่าลงทะเบียน</title>
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background: #f5faff
+    }
+    label {
+      margin-top: 12px;
+      display: block;
+    }
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>📤 อัปโหลดสลิปค่าลงทะเบียน</h2>
+  <form id="uploadForm">
+    <label>รหัสลงทะเบียน (ID):</label>
+    <input type="text" name="id" required>
+
+    <label>ชื่อ-นามสกุล:</label>
+    <input type="text" name="name" required>
+
+    <label>เลือกรูปภาพ (JPG/PNG):</label>
+    <input type="file" name="file" accept="image/*" required>
+
+    <button type="submit">อัปโหลด</button>
+  </form>
+
+  <div id="result" style="margin-top: 20px;"></div>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      const res = await fetch('https://script.google.com/macros/s/AKfycbx2KSTzFEmjlo4EhBp95h_XpvJxrlLmrkLcAL7lDvqLB5XwF0YVQMsA7r3QoJI_EKEq0w/exec', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await res.text();
+      document.getElementById('result').innerHTML = result;
+    });
+  </script>
+</body>
+</html>
